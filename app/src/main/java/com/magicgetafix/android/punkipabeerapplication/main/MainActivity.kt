@@ -1,7 +1,8 @@
-package com.magicgetafix.android.punkipabeerapplication
+package com.magicgetafix.android.punkipabeerapplication.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.magicgetafix.android.punkipabeerapplication.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
