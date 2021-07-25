@@ -1,21 +1,24 @@
 package com.magicgetafix.android.punkipabeerapplication.services
 
-import androidx.room.Database
-import com.magicgetafix.android.punkipabeerapplication.api.response.Beer
-import com.magicgetafix.android.punkipabeerapplication.database.BeerDatabase
+import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
+import com.magicgetafix.android.punkipabeerapplication.utils.DataValidator
 import com.moneypenny.telephoneanswering.schedulers.ISchedulers
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 class BeerRepository constructor(private val databaseProvider: IDatabaseProvider, private val apiFactory: IApiFactory, private val schedulers: ISchedulers): IBeerRepository {
 
-    private val requestSubscription: Disposable? = null
+    private var requestSubscription: Disposable? = null
 
-    override fun getBeers(): Flowable<List<BeerViewModel>>{
+    override fun getBeers(): Flowable<List<BeerViewModel>> {
 
+        requestBeers()
         return Flowable.create<List<BeerViewModel>>({
                 emitter -> try {
 
@@ -31,8 +34,6 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
                         emitter.onNext(list)
                     }
 
-
-
                 }
         catch (e: Exception){
             emitter.onError(e)
@@ -42,14 +43,38 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
 
     }
 
-    private fun requestBeer() {
+    private fun requestBeers() {
         requestSubscription?.dispose()
-        /*requestSubscription =
-            apiFactory.getBeerApi().getAllBeers().subscribeOn(schedulers.background)
-                .observeOn(schedulers.ui).subscribe(
-                onNext = { print(mess) }, onError = (), onComplete = ()
-            )*/
+        val list: ArrayList<BeerDbModel> = arrayListOf()
+        requestSubscription = apiFactory.getBeerApi()
+            .getAllBeers()
+            .subscribeOn(schedulers.background)
+            .observeOn(schedulers.ui)
+            .subscribe({
+                 it.forEach {
+                     if (DataValidator.isValidBeer(it)){
+                         val beerDbModel = BeerDbModel(it.id, it.name!!, it.image_url!!, it.abv, it.tagline!!, it.description!!, it.food_pairing)
+                         list.add(beerDbModel)
+                        }
+                     }
+                    },{
+                        Timber.wtf("Api Error :%s", it.message)
+                    })
+        if (!list.isEmpty()){
+            insertBeersIntoDatabase(list)
+        }
 
+    }
+
+    private fun insertBeersIntoDatabase(list: List<BeerDbModel>){
+        try {
+            GlobalScope.launch {
+                databaseProvider.getDatabase().beerDao().insertBeers(list)
+            }
+        }
+        catch (e: Exception){
+            Timber.wtf("Insert error: %s", e.message)
+        }
     }
 }
 
