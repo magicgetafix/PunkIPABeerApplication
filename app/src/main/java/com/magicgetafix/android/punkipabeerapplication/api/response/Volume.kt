@@ -2,6 +2,6 @@ package com.magicgetafix.android.punkipabeerapplication.api.response
 
 data class Volume (
 
-	val value : Int,
+	val value : Number,
 	val unit : String
 )

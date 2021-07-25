@@ -2,6 +2,6 @@ package com.magicgetafix.android.punkipabeerapplication.api.response
 
 data class Amount (
 
-	val value : Double,
+	val value : Number,
 	val unit : String
 )

@@ -8,7 +8,7 @@ import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
 object Mapper {
 
     fun toDbModel(response: Beer): BeerDbModel {
-        val volume = response.abv
+        val volume = response.abv.toDouble()
         val name = response.name ?: ""
         val imageUrl = response.image_url ?: ""
         val id = response.id
@@ -22,7 +22,7 @@ object Mapper {
         if (dbModel.name.isEmpty()) return null
         if (dbModel.tagline.isEmpty()) return null
         if (dbModel.description.length > Constants.DESCRIPTION_LENGTH_LIMIT) return  null
-        return BeerViewModel(dbModel.id, dbModel.name, dbModel.imageUrl, dbModel.strength, dbModel.tagline, dbModel.description, dbModel.foodPairingNotes)
+        return BeerViewModel(dbModel.id, dbModel.name, dbModel.imageUrl, dbModel.strength, dbModel.tagline, dbModel.description, dbModel.foodPairingNotesList)
     }
 
 

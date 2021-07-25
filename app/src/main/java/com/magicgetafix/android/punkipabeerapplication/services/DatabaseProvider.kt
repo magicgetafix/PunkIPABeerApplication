@@ -10,7 +10,9 @@ import javax.inject.Inject
 open class DatabaseProvider @Inject constructor(@ApplicationContext val context: Context): IDatabaseProvider {
 
     override fun getDatabase(): BeerDatabase {
-        val db = Room.databaseBuilder(context, BeerDatabase::class.java, Constants.DATABASE_NAME).build()
+        val db = Room.databaseBuilder(context, BeerDatabase::class.java, Constants.DATABASE_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
         return db
     }
 

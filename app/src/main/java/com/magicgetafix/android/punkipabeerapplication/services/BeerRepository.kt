@@ -1,5 +1,6 @@
 package com.magicgetafix.android.punkipabeerapplication.services
 
+import com.magicgetafix.android.punkipabeer.application.utils.Mapper
 import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
 import com.magicgetafix.android.punkipabeerapplication.utils.DataValidator
@@ -25,8 +26,7 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
                     databaseProvider.getDatabase().beerDao().getAllBeers().forEach{
                         val list: ArrayList<BeerViewModel> = arrayListOf()
                         it.forEach {
-                            val beer = BeerViewModel(it.id, it.name, it.imageUrl, it.strength, it.tagline, it.description, it.foodPairingNotes)
-                            //todo add validation
+                            val beer = Mapper.toViewModel(it)
                             if (beer != null){
                                 list.add(beer)
                             }
@@ -53,7 +53,7 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
             .subscribe({
                  it.forEach {
                      if (DataValidator.isValidBeer(it)){
-                         val beerDbModel = BeerDbModel(it.id, it.name!!, it.image_url!!, it.abv, it.tagline!!, it.description!!, it.food_pairing)
+                         val beerDbModel = Mapper.toDbModel(it)
                          list.add(beerDbModel)
                         }
                      }
