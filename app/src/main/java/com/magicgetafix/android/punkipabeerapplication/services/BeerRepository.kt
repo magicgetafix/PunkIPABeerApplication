@@ -44,6 +44,100 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
 
     }
 
+    override fun getStrongBeers(): Flowable<List<BeerViewModel>> {
+        return Flowable.create<List<BeerViewModel>>({
+                emitter -> try {
+
+            databaseProvider.getDatabase().beerDao().getStrongBeers().forEach{
+                val list: ArrayList<BeerViewModel> = arrayListOf()
+                it.forEach {
+                    val beer = Mapper.toViewModel(it)
+                    if (beer != null){
+                        list.add(beer)
+                    }
+                }
+                emitter.onNext(list)
+            }
+
+        }
+        catch (e: Exception){
+            emitter.onError(e)
+        }
+
+        }, BackpressureStrategy.BUFFER)
+    }
+
+    override fun getGermanBeers(): Flowable<List<BeerViewModel>> {
+        return Flowable.create<List<BeerViewModel>>({
+                emitter -> try {
+
+            databaseProvider.getDatabase().beerDao().getGermanBeers().forEach{
+                val list: ArrayList<BeerViewModel> = arrayListOf()
+                it.forEach {
+                    val beer = Mapper.toViewModel(it)
+                    if (beer != null){
+                        list.add(beer)
+                    }
+                }
+                emitter.onNext(list)
+            }
+
+        }
+        catch (e: Exception){
+            emitter.onError(e)
+        }
+
+        }, BackpressureStrategy.BUFFER)
+    }
+
+    override fun getBelgianBeers(): Flowable<List<BeerViewModel>> {
+        return Flowable.create<List<BeerViewModel>>({
+                emitter -> try {
+
+            databaseProvider.getDatabase().beerDao().getBelgianBeers().forEach{
+                val list: ArrayList<BeerViewModel> = arrayListOf()
+                it.forEach {
+                    val beer = Mapper.toViewModel(it)
+                    if (beer != null){
+                        list.add(beer)
+                    }
+                }
+                emitter.onNext(list)
+            }
+
+        }
+        catch (e: Exception){
+            emitter.onError(e)
+        }
+
+        }, BackpressureStrategy.BUFFER)
+    }
+
+    override fun getEuropeanBeers(): Flowable<List<BeerViewModel>> {
+
+        return Flowable.create<List<BeerViewModel>>({
+                emitter -> try {
+
+            databaseProvider.getDatabase().beerDao().getAllEuropeanBeers().forEach{
+                val list: ArrayList<BeerViewModel> = arrayListOf()
+                it.forEach {
+                    val beer = Mapper.toViewModel(it)
+                    if (beer != null){
+                        list.add(beer)
+                    }
+                }
+                emitter.onNext(list)
+            }
+
+        }
+        catch (e: Exception){
+            emitter.onError(e)
+        }
+
+        }, BackpressureStrategy.BUFFER)
+
+    }
+
     private fun requestBeers() {
         requestSubscription?.dispose()
         val list: ArrayList<BeerDbModel> = arrayListOf()
@@ -82,6 +176,9 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
 }
 
 interface IBeerRepository{
-
+    fun getEuropeanBeers(): Flowable<List<BeerViewModel>>
     fun getBeers(): Flowable<List<BeerViewModel>>
+    fun getStrongBeers(): Flowable<List<BeerViewModel>>
+    fun getGermanBeers(): Flowable<List<BeerViewModel>>
+    fun getBelgianBeers(): Flowable<List<BeerViewModel>>
 }

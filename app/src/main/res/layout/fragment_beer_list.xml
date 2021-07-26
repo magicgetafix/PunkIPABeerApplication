@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.BeerListFragment">
+    tools:context=".ui.beer_list.BeerListFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -31,6 +31,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <com.magicgetafix.android.punkipabeerapplication.ui.customviews.BeerListDisplay
+                android:id="@+id/all_beers_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.magicgetafix.android.punkipabeerapplication.ui.customviews.BeerListDisplay
+                android:id="@+id/european_beers_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"/>
+
+            <com.magicgetafix.android.punkipabeerapplication.ui.customviews.BeerListDisplay
+                android:id="@+id/strong_beers_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"/>
+
+            <com.magicgetafix.android.punkipabeerapplication.ui.customviews.BeerListDisplay
+                android:id="@+id/german_beers_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"/>
+
+            <com.magicgetafix.android.punkipabeerapplication.ui.customviews.BeerListDisplay
+                android:id="@+id/belgian_beers_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"/>
 
         </LinearLayout>
 

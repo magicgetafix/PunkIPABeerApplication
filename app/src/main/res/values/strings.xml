@@ -2,5 +2,11 @@
     <string name="app_name">PunkIPABeerApplication</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="abv_string">ABV: %1$d\u0025</string>
+    <string name="abv_string">ABV: </string>
+    <string name="all_beers">All Beers:</string>
+    <string name="Choose_your_beer">Choose your beer</string>
+    <string name="european_beers">European Beers:</string>
+    <string name="german_beers">German Beers:</string>
+    <string name="belgian_beers">Belgian Beers:</string>
+    <string name="strong_beers">Strong Beers:</string>
 </resources>
