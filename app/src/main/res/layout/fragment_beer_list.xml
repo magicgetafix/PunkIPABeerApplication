@@ -8,6 +8,7 @@
     tools:context=".ui.beer_list.BeerListFragment">
 
     <androidx.appcompat.widget.Toolbar
+        android:elevation="20dp"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
