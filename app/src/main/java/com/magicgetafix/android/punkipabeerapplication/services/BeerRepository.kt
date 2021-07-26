@@ -1,5 +1,6 @@
 package com.magicgetafix.android.punkipabeerapplication.services
 
+import android.renderscript.RenderScript
 import com.magicgetafix.android.punkipabeer.application.utils.Mapper
 import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
@@ -57,12 +58,14 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
                          list.add(beerDbModel)
                         }
                      }
+
+                    if (!list.isEmpty()){
+                        insertBeersIntoDatabase(list)
+                    }
                     },{
                         Timber.wtf("Api Error :%s", it.message)
                     })
-        if (!list.isEmpty()){
-            insertBeersIntoDatabase(list)
-        }
+
 
     }
 

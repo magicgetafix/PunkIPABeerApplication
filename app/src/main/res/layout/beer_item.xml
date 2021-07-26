@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/primary_colour_gradient"
+    android:layout_width="wrap_content"
+    android:minWidth="300dp"
+    android:layout_height="340dp">
+
+    <TextView
+        android:id="@+id/beerTitleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:theme="@style/BeerTitleStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Berliner Weisse With Yuzu - B-Sides" />
+
+    <ImageView
+        android:id="@+id/beerImageView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beerTitleView"
+        app:srcCompat="@drawable/beer_placeholder_icon" />
+
+    <TextView
+        android:id="@+id/beerTaglineView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:theme="@style/TaglineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/beerImageView"
+        tools:text="Japanese Citrus Berliner Weisse." />
+
+    <TextView
+        android:id="@+id/beerVolumeView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:theme="@style/AbvStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/beerImageView"
+        app:layout_constraintStart_toStartOf="@+id/beerImageView"
+        app:layout_constraintTop_toBottomOf="@id/beerTaglineView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@string/abv_string" />
+
+    <ImageView
+        android:id="@+id/alcoholStrengthView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/beerVolumeView"
+        app:layout_constraintEnd_toEndOf="@+id/beerVolumeView"
+        app:layout_constraintTop_toBottomOf="@+id/beerTaglineView"
+        app:srcCompat="@drawable/strength_icon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
