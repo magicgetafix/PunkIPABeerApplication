@@ -23,7 +23,7 @@ interface BeerDao {
     @Query("SELECT * FROM beerdbmodel WHERE description LIKE ('%'|| 'German' ||'%') OR description LIKE ('%'|| 'Belgian' ||'%') OR description LIKE ('%'|| 'Europe' ||'%') OR description LIKE ('%'|| 'French' ||'%') OR description LIKE ('%'|| 'Belgium' ||'%') OR description LIKE ('%'|| 'France' ||'%')")
     fun getAllEuropeanBeers(): Flowable<List<BeerDbModel>>
 
-    @Query("SELECT * FROM beerdbmodel WHERE strength >= 5.0")
+    @Query("SELECT * FROM beerdbmodel WHERE strength >= 5.0 ORDER BY strength DESC" )
     fun getStrongBeers(): Flowable<List<BeerDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

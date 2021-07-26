@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -16,6 +19,7 @@ import com.bumptech.glide.request.target.Target
 import com.magicgetafix.android.punkipabeerapplication.R
 import com.magicgetafix.android.punkipabeerapplication.databinding.BeerItemBinding
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
+import com.magicgetafix.android.punkipabeerapplication.ui.beer_details_fragment.BeerDetailsFragment
 
 class BeerListAdapter constructor(private val beerList: List<BeerViewModel>): RecyclerView.Adapter<BeerListViewHolder>() {
 
@@ -76,6 +80,11 @@ class BeerListAdapter constructor(private val beerList: List<BeerViewModel>): Re
         else{
             holder.binding.alcoholStrengthIcon.visibility = View.INVISIBLE
         }
+        holder.itemView.setOnClickListener {
+            val action = BeerListFragmentDirections.toBeerDetailsFragment(position)
+            holder.itemView.findNavController().navigate(action)
+        }
+
     }
 
     override fun getItemCount(): Int {

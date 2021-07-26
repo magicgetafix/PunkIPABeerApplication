@@ -9,5 +9,18 @@
         android:id="@+id/beerListFragment"
         android:name="com.magicgetafix.android.punkipabeerapplication.ui.beer_list.BeerListFragment"
         android:label="@string/Choose_your_beer"
-        tools:layout="@layout/fragment_beer_list" />
+        tools:layout="@layout/fragment_beer_list" >
+        <action
+            android:id="@+id/toBeerDetailsFragment"
+            app:destination="@id/beerDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beerDetailsFragment"
+        android:name="com.magicgetafix.android.punkipabeerapplication.ui.beer_details_fragment.BeerDetailsFragment"
+        android:label="beer_details_fragment"
+        tools:layout="@layout/beer_details_fragment" >
+        <argument
+            android:name="itemIndex"
+            app:argType="integer" />
+    </fragment>
 </navigation>
