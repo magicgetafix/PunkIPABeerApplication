@@ -81,7 +81,7 @@ class BeerListAdapter constructor(private val beerList: List<BeerViewModel>): Re
             holder.binding.alcoholStrengthIcon.visibility = View.INVISIBLE
         }
         holder.itemView.setOnClickListener {
-            val action = BeerListFragmentDirections.toBeerDetailsFragment(position)
+            val action = BeerListFragmentDirections.toBeerDetailsFragment(beer.id)
             holder.itemView.findNavController().navigate(action)
         }
 

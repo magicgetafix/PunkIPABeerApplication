@@ -2,9 +2,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#00AFDB</item>
-        <item name="colorPrimaryDark">#333</item>
-        <item name="colorAccent">#ECECEC</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="TitleStyle" parent="AppTheme">
@@ -13,6 +20,26 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">start</item>
         <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="SubtitleStyle" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">start</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_marginStart">16dp</item>
+    </style>
+
+    <style name="DescriptionStyle" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:layout_marginStart">16dp</item>
     </style>

@@ -8,10 +8,10 @@
     tools:context=".ui.beer_details_fragment.BeerDetailsFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:elevation="0dp"
-        android:theme="@style/AppTheme"
+        android:elevation="10dp"
+        android:theme="@style/ToolbarTheme"
         android:id="@+id/toolbar"
-        android:background="@color/colorPrimary"
+        android:background="@color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
@@ -20,46 +20,109 @@
     <androidx.core.widget.NestedScrollView
         android:background="@drawable/primary_color_gradient_to_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginBottom="80dp"
             android:layout_width="match_parent"
-            android:layout_height="1000dp">
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/largeBeerImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="550dp"
-                android:layout_marginTop="80dp"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/punk_ipa_image" />
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/largeBeerImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="460dp"
+            android:layout_marginTop="40dp"
+            android:scaleType="centerInside"
+            tools:src="@drawable/punk_ipa_image" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="0dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/beer_name"
-                android:text="Punk IPA"
-                android:gravity="center"
+                android:id="@+id/beerName"
+                android:layout_width="wrap_content"
+                android:maxWidth="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:theme="@style/TitleStyle"
-                app:layout_constraintTop_toBottomOf="@id/largeBeerImageView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_margin="16dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Dizzy Blonde" />
 
+            <TextView
+                android:id="@+id/beerVolumeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:autoSizeMaxTextSize="16sp"
+                android:background="@drawable/dark_circle"
+                android:gravity="center"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/beerName"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="12.5%" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/beerDescription"
+                tools:text="A titillating, neurotic, peroxide punk of a Pale Ale. Combining attitude, style, substance, and a little bit of low self esteem for good measure; what would your mother say? The seductive lure of the sassy passion fruit hop proves too much to resist. All that is even before we get onto the fact that there are no additives, preservatives, pasteurization or strings attached. All wrapped up with the customary BrewDog bite and imaginative twist."
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/TaglineStyle"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:theme="@style/SubtitleStyle"
+                android:gravity="center"
+                android:text="@string/food_suggestions"
+                android:id="@+id/foodAccompanimentsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
+            <TextView
+                android:id="@+id/foodAccompaniments"
+                android:layout_gravity="center_horizontal"
+                tools:text="Fresh crab with lemon, Garlic butter dipping sauce, Goats cheese salad, Creamy lemon bar doused in powdered sugar"
+                android:gravity="start"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/DescriptionStyle"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"/>
 
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>
 

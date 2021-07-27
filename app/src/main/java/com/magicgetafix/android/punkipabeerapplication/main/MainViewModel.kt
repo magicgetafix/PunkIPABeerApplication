@@ -24,12 +24,14 @@ class MainViewModel @Inject constructor(@ApplicationContext private val context:
     private val strongBeersMutableLiveData: SingleLiveEvent<List<BeerViewModel>> = SingleLiveEvent<List<BeerViewModel>>()
     private val belgianBeersMutableLiveData: SingleLiveEvent<List<BeerViewModel>> = SingleLiveEvent<List<BeerViewModel>>()
     private val germanBeersMutableLiveData: SingleLiveEvent<List<BeerViewModel>> = SingleLiveEvent<List<BeerViewModel>>()
+    private var listOfAllBeers: List<BeerViewModel> = arrayListOf()
 
     init {
         beerRepository.getBeers()
             .subscribeOn(schedulers.background)
             .observeOn(schedulers.ui)
             .subscribe({
+                listOfAllBeers = ArrayList(it)
                 allBeersMutableLiveData.postValue(it)
             }, {
                 Timber.wtf("Failed to get beer list data :" + it.message)
@@ -90,6 +92,15 @@ class MainViewModel @Inject constructor(@ApplicationContext private val context:
 
     fun getGermanBeersLiveData(): SingleLiveEvent<List<BeerViewModel>>{
         return germanBeersMutableLiveData
+    }
+
+    fun getBeerFromList(id: Int): BeerViewModel? {
+        listOfAllBeers.forEach {
+            if (it.id.equals(id)){
+                return it
+            }
+        }
+        return null
     }
 
 
