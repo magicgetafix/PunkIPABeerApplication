@@ -30,15 +30,13 @@ class BeerListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (fragmentView == null) {
-            // Inflate the layout for this fragment
-            fragmentBinding = FragmentBeerListBinding.inflate(layoutInflater)
-            //scope MainViewModel to MainActivity so it functions almost as a global instance
-            mainViewModel =
-                ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
-            fragmentView = fragmentBinding.root
-        }
-        return fragmentView
+        // Inflate the layout for this fragment
+        fragmentBinding = FragmentBeerListBinding.inflate(layoutInflater)
+        //scope MainViewModel to MainActivity so it functions almost as a global instance
+        mainViewModel =
+            ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+        return fragmentBinding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
