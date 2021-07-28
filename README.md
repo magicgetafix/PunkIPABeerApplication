@@ -10,3 +10,5 @@ Data is transmitted from the Repository to the View Layer using a combination of
 
 Tests integrating the Database, Api and ViewModel can be found and run from the AndroidTest package.
 
+App can be run on any Android phone from Android 7.0 (Nougat) onwards.
+
