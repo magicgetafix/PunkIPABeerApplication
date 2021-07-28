@@ -83,6 +83,26 @@ class MainViewModelTest {
     }
 
     @Test
+    fun getStrongBeers(){
+        mainViewModel.getStrongBeersLiveData()
+        assertEquals(4, mainViewModel.getStrongBeersLiveData().value?.size)
+    }
+
+    @Test
+    fun checkOrder(){
+        val lastBeer = mainViewModel.getStrongBeersLiveData().value?.last()
+        assertEquals("Berliner Weisse With Yuzu - B-Sides", lastBeer?.name)
+        val firstBeer = mainViewModel.getStrongBeersLiveData().value?.first()
+        assertEquals("Trashy Blonde", firstBeer?.name)
+    }
+
+    @Test
+    fun getEuropeanBeers(){
+        mainViewModel.getEuropeanBeersLiveData()
+        assertEquals(3, mainViewModel.getEuropeanBeersLiveData().value?.size)
+    }
+
+    @Test
     fun getBelgianBeers(){
         mainViewModel.getBelgianBeersLiveData()
         assertEquals(1, mainViewModel.getBelgianBeersLiveData().value?.size)

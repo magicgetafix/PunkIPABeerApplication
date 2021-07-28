@@ -45,7 +45,7 @@ object AndroidTestDataFactory {
         image_url = "https://images.punkapi.com/v2/2.png",
         tagline = "You Know You Shouldn't.",
         id = 4,
-        food_pairing = arrayListOf(), abv = 10.0)
+        food_pairing = arrayListOf(), abv = 11.0)
     }
 
     fun getBeerLongDescription(): Beer {
