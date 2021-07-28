@@ -12,3 +12,12 @@ Tests integrating the Database, Api and ViewModel can be found and run from the 
 
 App can be run on any Android phone from Android 7.0 (Nougat) onwards.
 
+Improvements I would make given more time:
+
+I would either replace the Room database with Realm, as it is easier to watch for changes in the database, or work out why the Rx Flowable Wrapper isn't observing and reacting to changes in the Room Database (This is something I have implemented in several projects before without any problems, although usually using RxJava or RxJava2)
+
+I would implement more extensive and exhaustive test cases, and also add some UI tests.
+
+
+
+
