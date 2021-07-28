@@ -97,15 +97,41 @@ class MainViewModelTest {
         assertEquals(4, mainViewModel.getAllBeersLiveData().value?.size)
     }
 
+    @Test
+    fun findBeer(){
+        val beer = mainViewModel.getBeerFromList(4)
+        assertEquals("Trashy Blonde", beer?.name)
+        assertEquals("You Know You Shouldn't.", beer?.tagline)
+    }
+
+    @Test
+    fun failToFindIncompleteBeer(){
+        val beer = mainViewModel.getBeerFromList(9)
+        assertNull(beer)
+    }
+
+    @Test
+    fun failToFindBeer(){
+        val beer = mainViewModel.getBeerFromList(38)
+        assertNull(beer)
+    }
+
+    @Test
+    fun failToFindBeerAgain(){
+        val beer = mainViewModel.getBeerFromList(0)
+        assertNull(beer)
+    }
+
+    @Test
+    fun failToFindBeerNegative(){
+        val beer = mainViewModel.getBeerFromList(-1)
+        assertNull(beer)
+    }
+
+
     @After
     fun tearDown() {
+        db.close()
     }
 
-    @Test
-    fun getAllBeersLiveData() {
-    }
-
-    @Test
-    fun getBeerFromList() {
-    }
 }
