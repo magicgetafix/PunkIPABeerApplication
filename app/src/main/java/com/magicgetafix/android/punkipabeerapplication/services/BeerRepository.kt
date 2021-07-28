@@ -138,7 +138,7 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
 
     }
 
-    private fun requestBeers() {
+   private fun requestBeers() {
         requestSubscription?.dispose()
         val list: ArrayList<BeerDbModel> = arrayListOf()
         requestSubscription = apiFactory.getBeerApi()
@@ -163,7 +163,7 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
 
     }
 
-    private fun insertBeersIntoDatabase(list: List<BeerDbModel>){
+    override fun insertBeersIntoDatabase(list: List<BeerDbModel>){
         try {
             GlobalScope.launch {
                 databaseProvider.getDatabase().beerDao().insertBeers(list)
@@ -181,4 +181,5 @@ interface IBeerRepository{
     fun getStrongBeers(): Flowable<List<BeerViewModel>>
     fun getGermanBeers(): Flowable<List<BeerViewModel>>
     fun getBelgianBeers(): Flowable<List<BeerViewModel>>
+    fun insertBeersIntoDatabase(list: List<BeerDbModel>)
 }
