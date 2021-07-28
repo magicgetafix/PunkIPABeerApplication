@@ -1,6 +1,7 @@
 package com.magicgetafix.android.punkipabeerapplication.ui.beer_details_fragment
 
 import android.app.Dialog
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.magicgetafix.android.punkipabeerapplication.R
 import com.magicgetafix.android.punkipabeerapplication.databinding.BeerDetailsFragmentBinding
 import com.magicgetafix.android.punkipabeerapplication.databinding.FragmentBeerListBinding
@@ -46,9 +51,10 @@ class BeerDetailsFragment : DialogFragment() {
         //load image
         Glide.with(this)
             .load(beer?.imageUrl)
+            .placeholder(R.drawable.beer_placeholder_icon)
             .centerInside()
             .into(fragmentBinding.largeBeerImageView)
-            .onLoadFailed(context?.getDrawable(R.drawable.beer_placeholder_icon))
+
         //set text
         fragmentBinding.beerDescription.text = beer?.description
         fragmentBinding.beerName.text = beer?.name

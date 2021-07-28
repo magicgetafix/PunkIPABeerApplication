@@ -37,7 +37,7 @@
             android:layout_height="460dp"
             android:layout_marginTop="40dp"
             android:scaleType="centerInside"
-            tools:src="@drawable/punk_ipa_image" />
+            android:src="@drawable/beer_placeholder_icon" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginStart="16dp"
