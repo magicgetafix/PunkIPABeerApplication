@@ -29,7 +29,6 @@ class MainViewModel @Inject constructor(@ApplicationContext private val context:
     var beersAreLoaded: Boolean = false
 
     init {
-        getAllBeersFromDb()
         beerRepository.requestBeers()
         beerRepository.getDbUpdateLiveData().observeForever {
             if (it == true) {
@@ -37,6 +36,7 @@ class MainViewModel @Inject constructor(@ApplicationContext private val context:
                 beersAreLoaded = true
             }
         }
+        getAllBeersFromDb()
     }
 
     private fun getAllBeersFromDb(){

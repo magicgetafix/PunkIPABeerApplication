@@ -1,12 +1,10 @@
 package com.magicgetafix.android.punkipabeerapplication.services
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.punkbeerapplication.database.BeerDao
 import com.magicgetafix.android.punkipabeerapplication.TestDataFactory
 import com.magicgetafix.android.punkipabeerapplication.api.BeerApi
 import com.magicgetafix.android.punkipabeerapplication.api.response.Beer
 import com.magicgetafix.android.punkipabeerapplication.database.BeerDatabase
-import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
 import com.moneypenny.telephoneanswering.schedulers.ISchedulers
 import com.moneypenny.telephoneanswering.schedulers.TestSchedulers
 import io.reactivex.rxjava3.core.Flowable
@@ -63,7 +61,7 @@ class BeerRepositoryTest : TestCase() {
         whenever(beerApi.getAllBeers()).thenReturn(Observable.fromIterable(listOfList))
         whenever(databaseProvider.getDatabase()).thenReturn(database)
         whenever(database.beerDao()).thenReturn(beerDao)
-        whenever(beerDao.getAllBeers()).thenReturn(Flowable.just(arrayListOf()))
+
     }
 
 
