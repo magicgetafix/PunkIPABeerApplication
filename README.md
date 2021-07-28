@@ -18,6 +18,8 @@ I would either replace the Room database with Realm, as it is easier to watch fo
 
 I would implement more extensive and exhaustive test cases, and also add some UI tests.
 
+Make use of the Random Beer api to provide the user with an option of choosing a random beer.
+
 
 
 
