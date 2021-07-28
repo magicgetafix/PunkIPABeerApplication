@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.magicgetafix.android.punkipabeerapplication.databinding.BeerListDisplayBinding
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
 import com.magicgetafix.android.punkipabeerapplication.ui.beer_list.BeerListAdapter
@@ -30,6 +31,10 @@ class BeerListDisplay: ConstraintLayout {
         beerListAdapter = BeerListAdapter(listBeer)
         ui.beerRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         ui.beerRecyclerView.adapter = beerListAdapter
+        //add SnapHelper to improve experience of scrolling through recyclerview
+        ui.beerRecyclerView.onFlingListener = null
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(ui.beerRecyclerView)
     }
 }
 
