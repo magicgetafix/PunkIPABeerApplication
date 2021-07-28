@@ -42,6 +42,7 @@ class MainViewModelTest {
 
     var schedulers: ISchedulers = TestSchedulers()
 
+    //rule to make Android Components like LiveData execute instantly on main thread
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
@@ -87,8 +88,8 @@ class MainViewModelTest {
         assertEquals(1, mainViewModel.getBelgianBeersLiveData().value?.size)
     }
 
-    /** This test should return all the beers which passed validation and were stored in the database
-     *
+    /**
+     * This test should return all the beers which passed validation and were stored in the database
      */
     @Test
     fun getAllBeers(){

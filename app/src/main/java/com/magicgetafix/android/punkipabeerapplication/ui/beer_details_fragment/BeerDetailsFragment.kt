@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -32,24 +33,33 @@ class BeerDetailsFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //set up toolbar
+        NavigationUI.setupWithNavController(fragmentBinding.toolbar, findNavController())
         val beerId = BeerDetailsFragmentArgs.fromBundle(requireArguments()).beerId
         val beer = viewModel.getBeerFromList(beerId)
+        //if beer can't be found
+        if (beer == null){
+            val beerNotFound = context?.getString(R.string.beer_not_found)
+            Toast.makeText(context, beerNotFound, Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+        }
         //load image
         Glide.with(this)
             .load(beer?.imageUrl)
             .centerInside()
             .into(fragmentBinding.largeBeerImageView)
+            .onLoadFailed(context?.getDrawable(R.drawable.beer_placeholder_icon))
         //set text
         fragmentBinding.beerDescription.text = beer?.description
         fragmentBinding.beerName.text = beer?.name
         fragmentBinding.beerVolumeText.text = (beer?.strength.toString() + "%")
+        //concatenate list into bullet point paragraph
         var foodAccompanimentBulletPoints = ""
         beer?.foodPairingNotes?.forEach {
             foodAccompanimentBulletPoints += "\u2022"+" "+it+"\n\n"
         }
         fragmentBinding.foodAccompaniments.text = foodAccompanimentBulletPoints
-        //set up toolbar
-        NavigationUI.setupWithNavController(fragmentBinding.toolbar, findNavController())
+
     }
 
 
