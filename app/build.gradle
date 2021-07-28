@@ -82,8 +82,8 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
-    //RxJava2 support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
+    //RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:$room_version"
 
     //Jetpack Navigation
     def nav_version = "2.3.5"

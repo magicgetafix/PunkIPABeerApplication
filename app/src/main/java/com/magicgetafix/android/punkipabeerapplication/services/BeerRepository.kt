@@ -1,9 +1,11 @@
 package com.magicgetafix.android.punkipabeerapplication.services
 
 import android.renderscript.RenderScript
+import androidx.lifecycle.LiveData
 import com.magicgetafix.android.punkipabeer.application.utils.Mapper
 import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
+import com.magicgetafix.android.punkipabeerapplication.model.livedata.SingleLiveEvent
 import com.magicgetafix.android.punkipabeerapplication.utils.DataValidator
 import com.moneypenny.telephoneanswering.schedulers.ISchedulers
 import io.reactivex.rxjava3.core.BackpressureStrategy
@@ -11,36 +13,39 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 import timber.log.Timber
 
 
 class BeerRepository constructor(private val databaseProvider: IDatabaseProvider, private val apiFactory: IApiFactory, private val schedulers: ISchedulers): IBeerRepository {
 
     private var requestSubscription: Disposable? = null
+    private val dbUpdateLiveData: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
     override fun getBeers(): Flowable<List<BeerViewModel>> {
 
-        requestBeers()
         return Flowable.create<List<BeerViewModel>>({
                 emitter -> try {
 
-                    databaseProvider.getDatabase().beerDao().getAllBeers().forEach{
+                    databaseProvider.getDatabase().beerDao().getAllBeers()
+                        .subscribeOn(schedulers.background)
+                        .observeOn(schedulers.ui).subscribe {
                         val list: ArrayList<BeerViewModel> = arrayListOf()
                         it.forEach {
                             val beer = Mapper.toViewModel(it)
-                            if (beer != null){
+                            if (beer != null) {
                                 list.add(beer)
                             }
                         }
                         emitter.onNext(list)
                     }
 
-                }
+        }
         catch (e: Exception){
             emitter.onError(e)
         }
 
-        }, BackpressureStrategy.BUFFER)
+        }, BackpressureStrategy.BUFFER).subscribeOn(schedulers.background).observeOn(schedulers.ui)
 
     }
 
@@ -138,7 +143,7 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
 
     }
 
-   private fun requestBeers() {
+   override fun requestBeers() {
         requestSubscription?.dispose()
         val list: ArrayList<BeerDbModel> = arrayListOf()
         requestSubscription = apiFactory.getBeerApi()
@@ -167,19 +172,26 @@ class BeerRepository constructor(private val databaseProvider: IDatabaseProvider
         try {
             GlobalScope.launch {
                 databaseProvider.getDatabase().beerDao().insertBeers(list)
+                dbUpdateLiveData.postValue(true)
             }
         }
         catch (e: Exception){
             Timber.wtf("Insert error: %s", e.message)
         }
     }
+
+    override fun getDbUpdateLiveData(): LiveData<Boolean> {
+        return dbUpdateLiveData
+    }
 }
 
 interface IBeerRepository{
+    fun requestBeers()
     fun getEuropeanBeers(): Flowable<List<BeerViewModel>>
     fun getBeers(): Flowable<List<BeerViewModel>>
     fun getStrongBeers(): Flowable<List<BeerViewModel>>
     fun getGermanBeers(): Flowable<List<BeerViewModel>>
     fun getBelgianBeers(): Flowable<List<BeerViewModel>>
     fun insertBeersIntoDatabase(list: List<BeerDbModel>)
+    fun getDbUpdateLiveData(): LiveData<Boolean>
 }

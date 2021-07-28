@@ -3,6 +3,7 @@ package com.magicgetafix.android.punkipabeerapplication.main
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.magicgetafix.android.punkipabeerapplication.model.BeerViewModel
 import com.magicgetafix.android.punkipabeerapplication.model.livedata.SingleLiveEvent
@@ -25,8 +26,20 @@ class MainViewModel @Inject constructor(@ApplicationContext private val context:
     private val belgianBeersMutableLiveData: SingleLiveEvent<List<BeerViewModel>> = SingleLiveEvent<List<BeerViewModel>>()
     private val germanBeersMutableLiveData: SingleLiveEvent<List<BeerViewModel>> = SingleLiveEvent<List<BeerViewModel>>()
     private var listOfAllBeers: List<BeerViewModel> = arrayListOf()
+    var beersAreLoaded: Boolean = false
 
     init {
+        getAllBeersFromDb()
+        beerRepository.requestBeers()
+        beerRepository.getDbUpdateLiveData().observeForever {
+            if (it == true) {
+                getAllBeersFromDb()
+                beersAreLoaded = true
+            }
+        }
+    }
+
+    private fun getAllBeersFromDb(){
         beerRepository.getBeers()
             .subscribeOn(schedulers.background)
             .observeOn(schedulers.ui)

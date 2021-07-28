@@ -1,5 +1,6 @@
 package com.magicgetafix.android.punkipabeerapplication.services
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.punkbeerapplication.database.BeerDao
 import com.magicgetafix.android.punkipabeerapplication.TestDataFactory
 import com.magicgetafix.android.punkipabeerapplication.api.BeerApi
@@ -8,10 +9,11 @@ import com.magicgetafix.android.punkipabeerapplication.database.BeerDatabase
 import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
 import com.moneypenny.telephoneanswering.schedulers.ISchedulers
 import com.moneypenny.telephoneanswering.schedulers.TestSchedulers
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import junit.framework.TestCase
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -64,21 +66,10 @@ class BeerRepositoryTest : TestCase() {
         whenever(beerDao.getAllBeers()).thenReturn(Flowable.just(arrayListOf()))
     }
 
-    @Test
-    fun testApiIsCalledOnGetBeers() {
-        beerRepository.getBeers()
-        verify(beerApi, Times(1)).getAllBeers()
-    }
-
-    @Test
-    fun testDatabaseIsCalledOnGetBeers() {
-        beerRepository.getBeers()
-        verify(beerApi, Times(1)).getAllBeers()
-    }
 
     @Test
     fun insertIntoDatabaseIsCalledOnGetBeers() {
-        beerRepository.getBeers()
+        beerRepository.requestBeers()
         verify(beerRepository, Times(1)).insertBeersIntoDatabase(Mockito.anyList())
     }
 }

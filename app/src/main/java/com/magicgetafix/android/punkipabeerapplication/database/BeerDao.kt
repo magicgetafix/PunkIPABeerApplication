@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.magicgetafix.android.punkipabeerapplication.api.response.Beer
 import com.magicgetafix.android.punkipabeerapplication.database.models.BeerDbModel
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 
 @Dao
 interface BeerDao {
